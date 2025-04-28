@@ -1,4 +1,4 @@
-type SchemaType = "string" | "boolean" | "number" | "integer";
+type SchemaType = string;
 type SchemaFormat =
   | "date-time"
   | "time"
@@ -15,7 +15,7 @@ type SchemaFormat =
   | "iri-reference";
 
 interface DisplayMappingSchema {
-  type: SchemaType;
+  type?: SchemaType;
   format?: SchemaFormat; // Solo se permite si el tipo es "string"
 }
 
@@ -28,7 +28,7 @@ interface DisplayMappingObject {
 interface DisplayProperties extends DisplayMappingObject {
   label?: string;
 }
-type CredentialDisplay = {
+export type CredentialDisplay = {
   title?: DisplayMappingObject;
   subtitle?: DisplayMappingObject;
   description?: DisplayMappingObject;

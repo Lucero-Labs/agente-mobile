@@ -24,7 +24,6 @@ import agentConfig from "../config/agent";
 import extraConfig from "../config/extra";
 import i18n from "../locale";
 import {
-  CredentialDisplay,
   IEntities,
   INotification,
   IssuerData,
@@ -33,7 +32,6 @@ import {
   StateType,
   StorageItemsType,
   StorageType,
-  VerifiableCredentialWithInfo,
 } from "../models";
 import { SecureStorage } from "../storages/secure-storage";
 import { Storage } from "../storages/storage";
@@ -41,6 +39,7 @@ import { AMISDKPlugin } from "@extrimian/ami-agent-plugin";
 import { ChunkedEncoder, ContentType } from "@extrimian/ami-sdk";
 import { ExtrimianVCAttachmentAgentPlugin } from "@extrimian/vc-attachments-agent-plugin";
 import { AttachmentFileStorage } from "../storages/fs-storage";
+import { CredentialDisplay, VerifiableCredentialWithInfo } from "../models/credential";
 
 const applicationSecureStorage = new SecureStorage("application");
 const applicationStorage = new Storage("application");
