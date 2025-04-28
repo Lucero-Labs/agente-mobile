@@ -116,51 +116,6 @@ const AcceptCredentials = ({ navigation, route }) => {
             <Popup navigation={navigation} title={i18n.t('acceptCredentialsScreen.reject')} description={i18n.t('acceptCredentialsScreen.rejectDescription')}
                 acceptHandler={() => { rejectCredentials() }} declineHandler={() => { setVisible(false) }} visible={visible} warning={true} />
             <Container>
-                {/* <ScrollView
-                    showsVerticalScrollIndicator={false}
-                    style={{
-                        width: '100%',
-                    }}
-                >
-                    {/* {issuer?.styles && <EntityHeader entityStyles={issuer.styles} />}
-                    <View
-                        style={{
-                            width: '100%',
-                            alignItems: 'center',
-                        }}
-                    >
-                        <View
-                            style={{
-                                width: '90%',
-                            }}
-                        >
-                            {/* <Title>
-                                {issuer?.name || issuer?.id || issuer} {i18n.t('acceptCredentialsScreen.description')}
-                            </Title>
-                            {credentials?.map((credential, index) => (
-                                <View key={index}>
-                                    {!!index && <View style={{ height: 10 }} />}
-                                    <CredentialAbstract
-                                        key={index}
-                                        credential={credential}
-                                        children={
-                                            <Checkbox
-                                                value={credential.selected}
-                                                color={credential.selected ? '#97CC00' : transparentize(0.6, credential.styles?.text?.color || 'black')}
-                                                onValueChange={() => setSelected(index)}
-                                                style={{
-                                                    padding: 14,
-                                                    borderColor: transparentize(0.8, 'black'),
-                                                }}
-                                            />
-                                        }
-                                    />
-                                </View>
-                            ))}
-                        </View>
-                    </View>
-                </ScrollView> */}
-
                 {credentials?.length > 0 && (<ListLayout
                     title={(issuer?.name ? issuer?.name : i18n.t('someone')) + ' ' + i18n.t('acceptCredentialsScreen.addTitle')}
                     showsVerticalScrollIndicator={false}
@@ -259,29 +214,6 @@ const AcceptCredentials = ({ navigation, route }) => {
                         )
                     }}
                 />)}
-                {/* <ButtonWrapper>
-                    <Button
-                        backgroundColor={lighten(0.1, 'red')}
-                        onPress={rejectCredentials}
-                        style={{
-                            width: '47%',
-                            position: 'relative',
-                        }}
-                    >
-                        {i18n.t('cancel')}
-                    </Button>
-                    <Button
-                        onPress={acceptCredentials}
-                        disabled={count <= 0}
-                        backgroundColor={theme.color.secondary}
-                        style={{
-                            width: '47%',
-                            position: 'relative',
-                        }}
-                    >
-                        {i18n.t('acceptCredentialsScreen.accept')}
-                    </Button>
-                </ButtonWrapper> */}
                 <ButtonsWrapper>
                     <EmailButton
                         onPress={isDisabled || !enableButton ? null : acceptCredentials}

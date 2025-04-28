@@ -113,3 +113,17 @@ export const validateDate = (date) => {
 export const isImgUrl = (url) => {
   return /\.(jpg|jped|png|webp|gif)$/.test(url);
 };
+
+export const isCredentialDisplayValid = (credential, display) => {
+  if (!display?.properties || !Array.isArray(display.properties)) return false;
+  for (const prop of display.properties) {
+    const value = formatField(credential, prop);
+    if (
+      value === undefined ||
+      value === null
+    ) {
+      return false;
+    }
+  }
+  return true;
+};

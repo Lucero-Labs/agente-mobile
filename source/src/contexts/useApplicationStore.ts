@@ -40,6 +40,7 @@ import { ChunkedEncoder, ContentType } from "@extrimian/ami-sdk";
 import { ExtrimianVCAttachmentAgentPlugin } from "@extrimian/vc-attachments-agent-plugin";
 import { AttachmentFileStorage } from "../storages/fs-storage";
 import { CredentialDisplay, VerifiableCredentialWithInfo } from "../models/credential";
+import { isCredentialDisplayValid } from "../utils";
 
 const applicationSecureStorage = new SecureStorage("application");
 const applicationStorage = new Storage("application");
@@ -320,6 +321,13 @@ export const useApplicationStore = create<ApplicationStoreProps>(
       const transport = get().agent.transport.getTranportByMessageId(messageId);
       const isConnectableTransport = transport instanceof ConnectableTransport;
 
+      const validCredentials = credentials.filter(
+        (cred) => 
+          !!cred.data &&
+          !!cred.display &&
+          isCredentialDisplayValid(cred.data, cred.display)
+      );
+      
       if (isConnectableTransport) {
         set(() => ({
           isConnected: false,
@@ -328,12 +336,12 @@ export const useApplicationStore = create<ApplicationStoreProps>(
           websocketTransport.dispose();
         }, 3000);
         get().navigation.navigate("AcceptCredentials", {
-          credentials,
+          validCredentials,
           issuer,
         });
       } else {
         get().notification.send(NotificationType.ISSUE_CREDENTIAL, {
-          credentials,
+          validCredentials,
           issuer,
         });
       }
