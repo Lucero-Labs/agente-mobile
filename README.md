@@ -77,6 +77,80 @@ Start the app
 yarn android
 ```
 
+## Running on macOS with M Chips
+To run the project on macOS with Apple Silicon (M1, M2, M3) chips, follow these additional steps:
+
+1. Use Node.js version 18:
+```bash
+nvm use 18
+```
+
+2. Set up Android SDK path:
+```bash
+cd android
+touch local.properties
+```
+Add the following line to local.properties:
+```
+sdk.dir = /Users/YOUR_USERNAME/Library/Android/sdk
+```
+Replace YOUR_USERNAME with your macOS username.
+
+3. Fix JFrog download URL issue by installing patch-package:
+```bash
+npm install --save-dev patch-package postinstall-postinstall
+```
+
+4. Fix the React Native boost download URL:
+   
+   Edit the file: `node_modules/expo-modules-core/android/build.gradle`
+   
+   Replace the JFrog URL with the archives.boost.io URL:
+   
+   Change:
+   ```
+   def srcUrl = REACT_NATIVE_TARGET_VERSION >= 69
+     ? "https://boostorg.jfrog.io/artifactory/main/release/${BOOST_VERSION.replace("_", ".")}/source/boost_${BOOST_VERSION}.tar.gz"
+     : "https://github.com/react-native-community/boost-for-react-native/releases/download/v${BOOST_VERSION.replace("_", ".")}-0/boost_${BOOST_VERSION}.tar.gz"
+   ```
+   
+   To:
+   ```
+   def srcUrl = REACT_NATIVE_TARGET_VERSION >= 69
+     ? "https://archives.boost.io/release/${BOOST_VERSION.replace("_", ".")}/source/boost_${BOOST_VERSION}.tar.gz"
+     : "https://github.com/react-native-community/boost-for-react-native/releases/download/v${BOOST_VERSION.replace("_", ".")}-0/boost_${BOOST_VERSION}.tar.gz"
+   ```
+   
+   Additionally, if you find it and update:
+   ```
+   def srcUrl = "https://boostorg.jfrog.io/artifactory/main/release/${transformedVersion}/source/boost_${BOOST_VERSION}.tar.gz"
+   ```
+   
+   To:
+   ```
+   def srcUrl = "https://archives.boost.io/release/${transformedVersion}/source/boost_${BOOST_VERSION}.tar.gz"
+   ```
+
+5. Create the patch:
+```bash
+npx patch-package expo-modules-core
+```
+
+6. Clean the Gradle project:
+```bash
+cd android
+./gradlew clean
+cd ..
+```
+
+7. Launch the Android app:
+```bash
+yarn android
+```
+
+These fixes address the React Native community issues with broken download URLs from JFrog. For more information, see [this GitHub issue](https://github.com/expo/expo/issues/26302#issuecomment-1881188095).
+
+
 ### General
 
 N/A
