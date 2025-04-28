@@ -327,6 +327,8 @@ export const useApplicationStore = create<ApplicationStoreProps>(
           !!cred.display &&
           isCredentialDisplayValid(cred.data, cred.display)
       );
+
+      if (!validCredentials.length) return;
       
       if (isConnectableTransport) {
         set(() => ({
@@ -336,12 +338,12 @@ export const useApplicationStore = create<ApplicationStoreProps>(
           websocketTransport.dispose();
         }, 3000);
         get().navigation.navigate("AcceptCredentials", {
-          validCredentials,
+          credentials,
           issuer,
         });
       } else {
         get().notification.send(NotificationType.ISSUE_CREDENTIAL, {
-          validCredentials,
+          credentials,
           issuer,
         });
       }
