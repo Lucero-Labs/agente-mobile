@@ -4,7 +4,7 @@
   "version": "3.1.0",
   "private": true,
   "scripts": {
-    "postinstall": "npx jetify && ./scripts/fix-dependencies.sh &&  yarn patch-package",
+    "postinstall": "npx jetify && ./scripts/fix-dependencies.sh",
     "android": "expo run:android",
     "ios": "expo run:ios",
     "start": "expo start --dev-client",
