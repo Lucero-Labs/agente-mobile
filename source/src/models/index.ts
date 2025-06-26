@@ -1,4 +1,4 @@
-import { VerifiableCredential } from '@extrimian/agent';
+import { CredentialManifestStyles } from './credential';
 export enum StorageType {
     INTRODUCTION = 'introduction',
     TUTORIAL = 'tutorial',
@@ -141,50 +141,8 @@ export interface IEntities {
     style: IStyles;
 }
 
-export type CredentialDisplay = {
-    title?: DisplayMappingObject;
-    subtitle?: DisplayMappingObject;
-    description?: DisplayMappingObject;
-    properties?: (DisplayMappingObject & {
-        label?: string;
-    })[];
-};
-
-export type DisplayMappingObject =
-    | {
-          path?: string[];
-          schema?: {
-              type?: string;
-          };
-          fallback?: string;
-      }
-    | {
-          text: string;
-      };
-
-export type CredentialManifestStyles = {
-    thumbnail?: ThumbnailImage;
-    hero?: ThumbnailImage;
-    background?: ColorDefinition;
-    text?: ColorDefinition;
-};
-
-export type ColorDefinition = {
-    color: string;
-};
-export type ThumbnailImage = {
-    uri: string;
-    alt: string;
-};
-
 export type IssuerData = {
     id: string;
     name: string;
     styles?: CredentialManifestStyles;
-};
-
-export type VerifiableCredentialWithInfo = {
-    data: VerifiableCredential;
-    styles: CredentialManifestStyles;
-    display: CredentialDisplay;
 };
